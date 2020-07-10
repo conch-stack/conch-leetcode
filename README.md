@@ -1,2 +1,2 @@
-# beihu-leetcode
+# Beihu-LeetCode
 LeetCode Algorithm
