@@ -93,7 +93,30 @@ public class FortyAlgorithm {
         return secondNod;  // 交换后 返回第二个节点
     }
 
+    /**
+     * 141. 环形链表
+     *
+     * 给定一个链表，判断链表中是否有环。
+     * 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。
+     */
+    public boolean hasCycle(ListNode head) {
+        // 方式1：hashSet存储<ListNode>
+        // 方式2：快慢指针（龟兔赛跑）:两个指针同时跑，一个每次跑一步，一个每次跑两步，当他们相遇时，说明有环，当有next为null时，说明无环
+        if (head == null || head.next == null) {
+            return false;
+        }
+        ListNode slow = head;
+        ListNode faster = head.next;
 
+        while (faster != null && faster.next != null){
+            if (faster == slow) {
+                return true;
+            }
+            faster = faster.next.next;
+            slow = slow.next;
+        }
+        return false;
+    }
 
     // main
 
