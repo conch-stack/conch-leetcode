@@ -5,6 +5,7 @@ import ltd.beihu.leetcode.utils.GsonUtils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 40个算法题
@@ -153,13 +154,17 @@ public class FortyAlgorithm {
         return stack.empty();
     }
 
+
+
     // main
 
     public static void main(String[] args) {
         // testReverseList1();
         // testReverseList2();
-        testswapPairs1();
+        // testswapPairs1();
         // testswapPairs2();
+
+        testMyQueue();
     }
 
     // test reverseList
@@ -190,6 +195,21 @@ public class FortyAlgorithm {
         System.out.println(GsonUtils.gson.toJson(listNode));
     }
 
+    public static void testMyQueue() {
+        MyQueue myQueue = new MyQueue();
+        myQueue.push(1);
+        myQueue.push(2);
+        myQueue.push(3);
+        System.out.println(myQueue.pop());
+        myQueue.push(4);
+        System.out.println(myQueue.peek());
+        System.out.println(myQueue.pop());
+        System.out.println(myQueue.empty());
+
+        while (!myQueue.empty()) {
+            System.out.println(myQueue.pop());
+        }
+    }
 
 }
 
@@ -207,3 +227,68 @@ class ListNode {
 
 }
 
+/**
+ * 232. 用栈实现队列
+ *      官方实现不需要考虑多线程操作
+ */
+class MyQueue {
+
+    private static Stack<Integer> inStack;
+    private static Stack<Integer> outStack;
+    private static ReentrantLock lock;
+
+    /** Initialize your data structure here. */
+    public MyQueue() {
+        inStack = new Stack<>();
+        outStack = new Stack<>();
+        lock = new ReentrantLock();
+    }
+
+    /** Push element x to the back of queue. */
+    public void push(int x) {
+        lock.lock();
+        try {
+            inStack.push(x);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    /** Removes the element from in front of queue and returns that element. */
+    public int pop() {
+        lock.lock();
+        try {
+            if (outStack.isEmpty()) {
+                while (!inStack.isEmpty()) {
+                    outStack.push(inStack.pop());
+                }
+            }
+            return outStack.pop();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    /** Get the front element. */
+    public int peek() {
+        lock.lock();
+        try {
+            if (outStack.isEmpty()) {
+                while (!inStack.isEmpty()) {
+                    outStack.push(inStack.pop());
+                }
+            }
+            return outStack.peek();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    /** Returns whether the queue is empty. */
+    public boolean empty() {
+        if (inStack.isEmpty() && outStack.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+}
