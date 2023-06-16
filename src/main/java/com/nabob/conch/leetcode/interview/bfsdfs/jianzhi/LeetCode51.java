@@ -1,4 +1,4 @@
-package ltd.beihu.leetcode.interview.bfsdfs.jianzhi;
+package com.nabob.conch.leetcode.interview.bfsdfs.jianzhi;
 
 /**
  * N皇后 - 剪枝

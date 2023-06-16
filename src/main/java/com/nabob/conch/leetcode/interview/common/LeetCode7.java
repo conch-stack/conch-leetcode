@@ -1,4 +1,4 @@
-package ltd.beihu.leetcode.interview.common;
+package com.nabob.conch.leetcode.interview.common;
 
 /**
  * 7. 整数反转

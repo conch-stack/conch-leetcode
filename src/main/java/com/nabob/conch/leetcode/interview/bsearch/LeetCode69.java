@@ -1,4 +1,4 @@
-package ltd.beihu.leetcode.interview.bsearch;
+package com.nabob.conch.leetcode.interview.bsearch;
 
 /**
  * Sqrt 函数实现

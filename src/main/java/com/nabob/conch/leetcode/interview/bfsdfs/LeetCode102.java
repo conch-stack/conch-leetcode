@@ -1,4 +1,4 @@
-package ltd.beihu.leetcode.interview.bfsdfs;
+package com.nabob.conch.leetcode.interview.bfsdfs;
 
 /**
  * @author Adam
